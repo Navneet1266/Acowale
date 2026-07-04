@@ -1,0 +1,9 @@
+process.env.NODE_ENV = "test";
+process.env.DATABASE_URL = "postgres://test:test@localhost:5432/acowale_test";
+process.env.JWT_SECRET = "test-secret-key-at-least-16-characters-long";
+process.env.JWT_EXPIRES_IN = "1h";
+process.env.CORS_ORIGIN = "http://localhost:5173";
+process.env.LOG_LEVEL = "silent";
+process.env.RATE_LIMIT_WINDOW_MS = "60000";
+process.env.RATE_LIMIT_MAX_SUBMISSIONS = "1000";
+process.env.RATE_LIMIT_MAX_LOGIN = "1000";

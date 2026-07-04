@@ -1,0 +1,33 @@
+# Reference config for deploying the API to Render (https://render.com/docs/blueprint-spec).
+# Not applied automatically — connect the repo in the Render dashboard and it will
+# pick this up, or configure the equivalent settings manually.
+services:
+  - type: web
+    name: acowale-feedback-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install && npm run build && npm run migrate:up
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 12h
+      - key: CORS_ORIGIN
+        sync: false
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: RATE_LIMIT_MAX_SUBMISSIONS
+        value: 5
+      - key: RATE_LIMIT_MAX_LOGIN
+        value: 10
+      - key: LOG_LEVEL
+        value: info

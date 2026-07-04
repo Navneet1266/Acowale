@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+
+  --chart-surface: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+
+  --series-1: #2a78d6; /* blue */
+  --series-2: #1baf7a; /* aqua */
+  --series-3: #eda100; /* yellow */
+  --series-4: #008300; /* green */
+  --series-5: #4a3aa7; /* violet */
+  --series-6: #e34948; /* red */
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-critical: #d03b3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chart-surface: #1a1a19;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --gridline: #2c2c2a;
+    --baseline: #383835;
+
+    --series-1: #3987e5;
+    --series-2: #199e70;
+    --series-3: #c98500;
+    --series-4: #008300;
+    --series-5: #9085e9;
+    --series-6: #e66767;
+
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-critical: #d03b3b;
+  }
+}
+
+/* Admin console — a deliberately always-dark "command center" theme,
+   independent of system light/dark preference (see DECISIONS.md).
+   One accent family (indigo) for chrome; a neutral, low-saturation surface
+   so the six categorical data colors stay the loudest thing on screen. */
+:root {
+  --adm-bg: #0a0a0d;
+  --adm-surface: rgba(255, 255, 255, 0.035);
+  --adm-surface-solid: #15151a;
+  --adm-border: rgba(255, 255, 255, 0.08);
+  --adm-border-strong: rgba(255, 255, 255, 0.14);
+  --adm-text-primary: #f4f4f6;
+  --adm-text-secondary: #a3a3ad;
+  --adm-text-muted: #6b6b76;
+  --adm-gridline: rgba(255, 255, 255, 0.06);
+  --adm-baseline: rgba(255, 255, 255, 0.14);
+
+  /* single brand accent family — indigo only, no competing hues in chrome */
+  --adm-accent: #6366f1;
+  --adm-accent-2: #818cf8;
+
+  /* chart series — the validated categorical dark-mode steps, unmodified */
+  --adm-series-1: #3987e5; /* blue */
+  --adm-series-2: #199e70; /* aqua */
+  --adm-series-3: #c98500; /* amber */
+  --adm-series-4: #4ade80; /* green */
+  --adm-series-5: #9085e9; /* violet */
+  --adm-series-6: #e66767; /* red */
+
+  --adm-good: #22c55e;
+  --adm-warning: #fbbf24;
+  --adm-critical: #f87171;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+.adm-grid-texture {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@keyframes adm-shimmer {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+.adm-skeleton {
+  animation: adm-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes adm-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.adm-pulse-dot {
+  animation: adm-pulse 2s ease-in-out infinite;
+}
