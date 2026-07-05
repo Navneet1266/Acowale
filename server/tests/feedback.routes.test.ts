@@ -16,7 +16,7 @@ let app: Express;
 let adminToken: string;
 
 beforeAll(async () => {
-  const { createApp } = await import("../src/app");
+  const { createApp } = await import("../src/app.js");
   app = createApp();
 
   const passwordHash = await bcrypt.hash("super-secret-password", 10);
