@@ -1,14 +1,20 @@
 # Reference config for deploying the API to Render (https://render.com/docs/blueprint-spec).
 # Not applied automatically — connect the repo in the Render dashboard and it will
 # pick this up, or configure the equivalent settings manually.
+#
+# Deliberately NOT using `rootDir: server` here. This is an npm-workspaces monorepo,
+# and installing/building from inside the server/ subdirectory as a standalone project
+# behaves differently than installing from the repo root (different dependency
+# resolution, no shared lockfile) — that mismatch caused two failed deploys before
+# this was fixed. Running everything from the repo root with `-w server` matches
+# exactly how this project is built and tested locally.
 services:
   - type: web
     name: acowale-feedback-api
     runtime: node
     plan: free
-    rootDir: server
-    buildCommand: npm install && npm run build && npm run migrate:up
-    startCommand: npm run start
+    buildCommand: npm install && npm run build -w server && npm run migrate:up -w server
+    startCommand: npm run start -w server
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
