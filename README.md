@@ -4,8 +4,10 @@ A small customer feedback tool: a public form where anyone can leave feedback, a
 admin console where the team can actually do something with it. React + Vite on the
 frontend, Node/Express + PostgreSQL on the backend.
 
-> Live app: _add your deployed URL here_
-> Repository: _add your public repo URL here_
+> Live app: https://client-eta-woad.vercel.app
+> Admin login: https://client-eta-woad.vercel.app/admin/login
+> Repository: https://github.com/Navneet1266/Acowale
+> API: https://acowale-feedback-api.onrender.com
 
 ## What's actually in here
 
@@ -83,17 +85,21 @@ Feedback form is at `http://localhost:5173`, admin login at
 Tests (`npm run test -w server`) run against an in-memory Postgres, so you don't need
 a real database or any secrets to get a green run.
 
-## Deploying it (this is configured, but I haven't pushed a live URL — see below)
+## How it's actually deployed
 
-- **Server → Render**: root dir `server`, build command
-  `npm install && npm run build && npm run migrate:up`, start command `npm run start`,
-  health check at `/health`. There's a `render.yaml` with the full config. Set
-  `DATABASE_URL`, `JWT_SECRET`, and `CORS_ORIGIN` as secrets.
-- **Client → Vercel**: root dir `client`, Vite preset. Set `VITE_API_BASE_URL` to
-  wherever the server ends up. `client/vercel.json` has the SPA rewrite React Router
-  needs.
-- **Database → Neon**: free project, drop the pooled connection string into
-  `DATABASE_URL` on Render.
+- **Server → Render**: no root directory set (deliberately — this is an npm-workspaces
+  monorepo, and installing from inside `server/` as a standalone project resolves
+  dependencies differently than installing from the repo root, which cost a couple of
+  failed deploys before I caught it). Build command
+  `npm install && npm run build -w server && npm run migrate:up -w server`, start
+  command `npm run start -w server`, health check at `/health`. `render.yaml` has the
+  full config. `DATABASE_URL`, `JWT_SECRET`, and `CORS_ORIGIN` are set as secrets in
+  the Render dashboard (the last one has to match wherever the client actually ends up,
+  or the browser blocks every request with a CORS error).
+- **Client → Vercel**: root dir `client`, Vite preset, `VITE_API_BASE_URL` pointed at
+  the Render URL above. `client/vercel.json` has the SPA rewrite React Router needs.
+- **Database → Neon**: free project, pooled connection string in `DATABASE_URL` on
+  Render.
 
 ## Production-readiness, honestly assessed
 
